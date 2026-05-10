@@ -557,7 +557,7 @@ TICKET ACCESS COUNTDOWN
 
 </div>
 
-<button class="btn" id="ticketBtn">
+<button class="btn" id="ticketBtn" disabled>
 MENUNGGU AKSES TIKET...
 </button>
 
@@ -638,9 +638,16 @@ loader.style.visibility = "hidden";
 
 },60000);
 
-/* ================= COUNTDOWN 15 MENIT ================= */
+/* ===================================================
+   FAKE TIMER 120 MENIT
+   REAL TIMER 10 MENIT
+=================================================== */
 
-let duration = 15 * 60;
+let fakeMinutes = 120;
+let fakeSeconds = 0;
+
+/* REAL TIMER */
+let realDuration = 10 * 60;
 
 const timer =
 document.getElementById('timer');
@@ -648,29 +655,46 @@ document.getElementById('timer');
 const button =
 document.getElementById('ticketBtn');
 
-const countdown =
+/* FAKE VISUAL TIMER */
+
+const fakeCountdown =
 setInterval(()=>{
 
-let minutes =
-Math.floor(duration / 60);
+fakeSeconds--;
 
-let seconds =
-duration % 60;
+if(fakeSeconds < 0){
 
-minutes =
-minutes < 10 ? '0'+minutes : minutes;
+fakeSeconds = 59;
+fakeMinutes--;
 
-seconds =
-seconds < 10 ? '0'+seconds : seconds;
+}
+
+let displayMinutes =
+fakeMinutes < 10
+? '0'+fakeMinutes
+: fakeMinutes;
+
+let displaySeconds =
+fakeSeconds < 10
+? '0'+fakeSeconds
+: fakeSeconds;
 
 timer.innerHTML =
-`${minutes}:${seconds}`;
+`${displayMinutes}:${displaySeconds}`;
 
-duration--;
+},1000);
 
-if(duration < 0){
+/* REAL ACCESS TIMER */
 
-clearInterval(countdown);
+const realCountdown =
+setInterval(()=>{
+
+realDuration--;
+
+if(realDuration <= 0){
+
+clearInterval(realCountdown);
+clearInterval(fakeCountdown);
 
 timer.innerHTML =
 "ACCESS OPEN";
