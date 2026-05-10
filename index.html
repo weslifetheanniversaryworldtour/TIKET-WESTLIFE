@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WESTLIFE Premium Waiting Room</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+font-family:'Poppins',sans-serif;
+background:#000;
+color:#fff;
+}
+
+/* ================= BACKGROUND ================= */
+
+.bg{
+position:fixed;
+inset:0;
+
+background:
+linear-gradient(to bottom,
+rgba(0,0,0,.35),
+rgba(0,0,0,.85)),
+url('330.png') center center/cover no-repeat;
+
+animation:bgZoom 30s ease-in-out infinite alternate;
+
+z-index:-5;
+}
+
+@keyframes bgZoom{
+from{
+transform:scale(1);
+}
+to{
+transform:scale(1.04);
+}
+}
+
+/* ================= LIGHT EFFECT ================= */
+
+.light{
+position:fixed;
+inset:0;
+
+background:
+radial-gradient(circle at center,
+rgba(255,170,0,.12),
+transparent 60%);
+
+animation:lightPulse 6s ease-in-out infinite;
+
+z-index:-4;
+}
+
+@keyframes lightPulse{
+0%,100%{
+opacity:.4;
+}
+50%{
+opacity:.9;
+}
+}
+
+/* ================= PARTICLES ================= */
+
+.particles{
+position:fixed;
+inset:0;
+overflow:hidden;
+z-index:-3;
+}
+
+.particles span{
+position:absolute;
+bottom:-20px;
+
+background:#ffb347;
+border-radius:50%;
+
+opacity:.6;
+
+animation:float linear infinite;
+}
+
+@keyframes float{
+
+0%{
+transform:
+translateY(0)
+translateX(0);
+opacity:0;
+}
+
+20%{
+opacity:.7;
+}
+
+100%{
+transform:
+translateY(-120vh)
+translateX(40px);
+opacity:0;
+}
+
+}
+
+/* ================= LOADER ================= */
+
+.loader{
+position:fixed;
+inset:0;
+
+background:
+linear-gradient(to bottom,
+rgba(0,0,0,.4),
+rgba(0,0,0,.85)),
+url('330.png') center center/cover no-repeat;
+
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+
+z-index:99999;
+}
+
+.logo{
+
+font-family:'Cinzel',serif;
+
+font-size:72px;
+font-weight:900;
+
+letter-spacing:5px;
+
+background:
+linear-gradient(
+to bottom,
+#fff,
+#ffd89a,
+#ff9f1c);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+text-shadow:
+0 0 15px rgba(255,170,0,.35);
+
+}
+
+.loader-sub{
+margin-top:15px;
+font-size:13px;
+letter-spacing:7px;
+color:#ddd;
+}
+
+.loader-ring{
+
+margin-top:40px;
+
+width:190px;
+height:190px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+position:relative;
+
+border:1px solid rgba(255,255,255,.08);
+
+background:rgba(255,255,255,.03);
+}
+
+.loader-ring::before{
+content:'';
+
+position:absolute;
+inset:-2px;
+
+border-radius:50%;
+
+border:3px solid transparent;
+border-top:3px solid #ffb347;
+
+animation:spin 1.5s linear infinite;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.loading-content{
+text-align:center;
+}
+
+.loading-content h2{
+font-size:18px;
+letter-spacing:3px;
+margin-bottom:10px;
+}
+
+.percent{
+font-size:60px;
+font-weight:700;
+color:#ffb347;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+width:100%;
+height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:20px;
+}
+
+.card{
+
+width:100%;
+max-width:470px;
+
+padding:32px;
+
+border-radius:28px;
+
+background:
+rgba(0,0,0,.38);
+
+backdrop-filter:blur(8px);
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 0 30px rgba(255,140,0,.12);
+
+animation:cardFloat 5s ease-in-out infinite;
+}
+
+@keyframes cardFloat{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-6px);
+}
+}
+
+.title{
+
+font-family:'Cinzel',serif;
+
+font-size:50px;
+font-weight:900;
+
+text-align:center;
+
+background:
+linear-gradient(
+to bottom,
+#fff,
+#ffd89a,
+#ff9f1c);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.subtitle{
+margin-top:10px;
+
+text-align:center;
+
+font-size:12px;
+letter-spacing:5px;
+
+color:#ddd;
+}
+
+.queue-box{
+
+margin-top:30px;
+
+padding:25px;
+
+border-radius:20px;
+
+background:
+rgba(255,255,255,.05);
+
+text-align:center;
+}
+
+.queue-label{
+font-size:13px;
+letter-spacing:3px;
+opacity:.8;
+}
+
+.queue-number{
+
+margin-top:8px;
+
+font-size:72px;
+font-weight:700;
+
+color:#ffb347;
+
+text-shadow:
+0 0 10px rgba(255,179,71,.4);
+}
+
+.info{
+
+margin-top:28px;
+
+line-height:1.8;
+
+font-size:14px;
+
+text-align:center;
+
+color:#ddd;
+}
+
+/* ================= TIMER ================= */
+
+.timer-box{
+
+margin-top:24px;
+
+padding:16px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,.04);
+
+text-align:center;
+}
+
+.timer-label{
+font-size:12px;
+letter-spacing:3px;
+opacity:.7;
+}
+
+.timer{
+
+margin-top:8px;
+
+font-size:32px;
+font-weight:700;
+
+color:#ffb347;
+}
+
+/* ================= BUTTON ================= */
+
+.btn{
+
+margin-top:28px;
+
+width:100%;
+height:60px;
+
+border:none;
+border-radius:16px;
+
+font-size:17px;
+font-weight:700;
+
+letter-spacing:1px;
+
+background:
+linear-gradient(
+45deg,
+#444,
+#222);
+
+color:white;
+
+cursor:not-allowed;
+
+opacity:.65;
+
+transition:.4s;
+}
+
+.btn.active{
+
+cursor:pointer;
+
+opacity:1;
+
+background:
+linear-gradient(
+45deg,
+#ff9f1c,
+#ffd89a);
+
+color:#000;
+
+box-shadow:
+0 0 20px rgba(255,170,0,.25);
+}
+
+.btn.active:hover{
+transform:translateY(-2px);
+}
+
+.footer{
+margin-top:20px;
+
+text-align:center;
+
+font-size:11px;
+
+letter-spacing:2px;
+
+opacity:.6;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+.logo{
+font-size:52px;
+}
+
+.title{
+font-size:38px;
+}
+
+.queue-number{
+font-size:60px;
+}
+
+.timer{
+font-size:26px;
+}
+
+.card{
+padding:24px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg"></div>
+
+<div class="light"></div>
+
+<!-- PARTICLES -->
+<div class="particles" id="particles"></div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+
+<div class="logo">
+WESTLIFE
+</div>
+
+<div class="loader-sub">
+PREMIUM WAITING ROOM
+</div>
+
+<div class="loader-ring">
+
+<div class="loading-content">
+
+<h2>LOADING</h2>
+
+<div class="percent" id="percent">
+0%
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="card">
+
+<div class="title">
+WESTLIFE
+</div>
+
+<div class="subtitle">
+25 YEARS ANNIVERSARY TOUR
+</div>
+
+<div class="queue-box">
+
+<div class="queue-label">
+NOMOR ANTRIAN ANDA
+</div>
+
+<div class="queue-number" id="queue">
+0000
+</div>
+
+</div>
+
+<div class="info">
+
+You are now entering the Official Premium Waiting Room.<br>
+Please keep this page open and do not refresh.<br><br>
+
+Saturday, 23 January 2027<br>
+Gelora Bung Karno Main Stadium
+
+</div>
+
+<div class="timer-box">
+
+<div class="timer-label">
+TICKET ACCESS COUNTDOWN
+</div>
+
+<div class="timer" id="timer">
+120:00
+</div>
+
+</div>
+
+<button class="btn" id="ticketBtn">
+MENUNGGU AKSES TIKET...
+</button>
+
+<div class="footer">
+OFFICIAL PREMIUM ACCESS
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ================= PARTICLES ================= */
+
+const particles = document.getElementById('particles');
+
+for(let i=0;i<35;i++){
+
+const span = document.createElement('span');
+
+const size = Math.random()*4+2;
+
+span.style.width = size+'px';
+span.style.height = size+'px';
+
+span.style.left = Math.random()*100+'vw';
+
+span.style.animationDuration =
+(Math.random()*8+8)+'s';
+
+span.style.animationDelay =
+Math.random()*5+'s';
+
+particles.appendChild(span);
+
+}
+
+/* ================= RANDOM QUEUE ================= */
+
+document.getElementById('queue').innerHTML =
+Math.floor(Math.random()*9000)+1000;
+
+/* ================= LOADING 60 DETIK ================= */
+
+let percent =
+document.getElementById('percent');
+
+let count = 0;
+
+const loading =
+setInterval(()=>{
+
+count++;
+
+percent.innerHTML = count + '%';
+
+if(count >= 100){
+
+clearInterval(loading);
+
+}
+
+},600);
+
+/* ================= HIDE LOADER ================= */
+
+setTimeout(()=>{
+
+const loader =
+document.getElementById('loader');
+
+loader.style.transition = "1.5s";
+
+loader.style.opacity = "0";
+
+loader.style.visibility = "hidden";
+
+},60000);
+
+/* ================= COUNTDOWN 15 MENIT ================= */
+
+let duration = 15 * 60;
+
+const timer =
+document.getElementById('timer');
+
+const button =
+document.getElementById('ticketBtn');
+
+const countdown =
+setInterval(()=>{
+
+let minutes =
+Math.floor(duration / 60);
+
+let seconds =
+duration % 60;
+
+minutes =
+minutes < 10 ? '0'+minutes : minutes;
+
+seconds =
+seconds < 10 ? '0'+seconds : seconds;
+
+timer.innerHTML =
+`${minutes}:${seconds}`;
+
+duration--;
+
+if(duration < 0){
+
+clearInterval(countdown);
+
+timer.innerHTML =
+"ACCESS OPEN";
+
+button.innerHTML =
+"BELI TIKET SEKARANG";
+
+button.classList.add('active');
+
+button.disabled = false;
+
+button.onclick = () => {
+
+window.location.href =
+"https://fforeverindonesia-svg.github.io/WESTLIFE-2/";
+
+};
+
+}
+
+},1000);
+
+</script>
+
+</body>
+</html>
